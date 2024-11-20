@@ -11,6 +11,7 @@ public class Polynomial {
 	 */
 	public Polynomial() {
 		//FIXME
+		this.list = new LinkedList<>(); // creates an empty list 
 	}
 
 	
@@ -21,6 +22,7 @@ public class Polynomial {
 	 */
 	public void addTerm(double coeff) {
 		//FIXME
+		list.add(coeff);
 	}
 	
 	/*
@@ -29,8 +31,19 @@ public class Polynomial {
 	 * Cx^N + Cx^N-1 + ... + Cx + C
 	 */
 	public String toString() {
-		return ""; //FIXME
-	}
+		//FIXME
+		String poly = "";
+		int i = list.size() - 1; // if 3 items in list highest power is 2, ex. x^2+4x+2 [1,4,2]
+		for (double val : list) { // goes through list starting with highest power coefficient 
+			poly += val + "x^" + i; 
+			if(i != 0) {  // if not last term add a plus symbol 
+				poly += " + ";
+			} 
+			i--;  // go to next term in list, which has lower power 
+		}
+		return poly;
+	}  
+	
 	
 	/**
 	 * 
@@ -38,13 +51,28 @@ public class Polynomial {
 	 * @return value of polynomial at that x
 	 */
 	public double evaluate(double x) {
-		return 0;//FIXME
+		//FIXME
+		double sum=0;
+		for(int i=0;i<list.size();i++) {
+			sum+=Math.pow(x,list.size()-i-1)*list.get(i);  // (x/given value)^power * coefficient(list value at index)
+		}
+		return sum;
 	}
+	
+	
 
 	
 	public Polynomial derivative() {
-		return null;//FIXME
-	}
+		//FIXME
+		Polynomial deriv=new Polynomial();
+		double newCoefficient=0;
+		for(int i=0;i<list.size()-1;i++) { // list.size()-1 to exclude last term that is eliminated in derivative 
+			newCoefficient=list.get(i)*(list.size()-i-1);
+			deriv.addTerm(newCoefficient);
+		}
+		return deriv;
+	} 
+
 	
 
 	/**

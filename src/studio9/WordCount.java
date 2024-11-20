@@ -31,8 +31,20 @@ public class WordCount {
 	public static Map<String, Integer> countWords(List<String> words) {
 
 		// FIXME
-		throw new NotYetImplementedException();
-
+		Map<String, Integer> map = new HashMap<>();
+		int value=0;
+		for(String word : words) {
+			if(map.containsKey(word)) {
+				value=map.get(word);
+				value++;
+				map.put(word,value);
+			}
+			else {
+			map.put(word,1);
+			}
+//			map.put(word, map.getOrDefault(word, 0) + 1); // or just this 
+		}
+		return map;
 	}
 	
 	public static void main(String[] args) {
@@ -48,5 +60,8 @@ public class WordCount {
 		
 		//TODO: Write code that will iterate over the words map
 		//to verify its contents
+		for (Map.Entry<String, Integer> word : words.entrySet()) {
+			System.out.println("Key="+word.getKey()+", Value="+word.getValue());
+		}
 	}
 }
